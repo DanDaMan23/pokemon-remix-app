@@ -1,13 +1,16 @@
 import { cssBundleHref } from "@remix-run/css-bundle"
 import type { LinksFunction, MetaFunction } from "@remix-run/node"
+import { json } from "@remix-run/node"
 import {
   Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration
+  ScrollRestoration,
+  useLoaderData
 } from "@remix-run/react"
+import { getAllPokemons } from "./data"
 
 export const meta: MetaFunction = () => {
   return [
@@ -20,7 +23,16 @@ export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : [])
 ]
 
+export const loader = async () => {
+  const pokemons = await getAllPokemons()
+  return json({ pokemons })
+}
+
 export default function App() {
+  const { pokemons } = useLoaderData<typeof loader>()
+
+  console.log(pokemons)
+
   return (
     <html lang='en'>
       <head>
