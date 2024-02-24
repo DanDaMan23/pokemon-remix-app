@@ -12,8 +12,6 @@ export const loader = async () => {
 export default function Index() {
   const { pokemonData } = useLoaderData<typeof loader>()
 
-  console.log(pokemonData)
-
   return (
     <div className='flex gap-2 flex-wrap justify-between'>
       {pokemonData.pokemons.length &&
