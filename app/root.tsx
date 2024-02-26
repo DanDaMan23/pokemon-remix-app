@@ -29,7 +29,7 @@ export default function App() {
         <Links />
       </head>
       <body className='m-3'>
-        <p className='text-2xl font-extrabold'>Pokedex</p>
+        <p className='text-5xl font-extrabold text-center m-5'>Pokedex</p>
         <div className='m-5'>
           <Outlet />
         </div>
