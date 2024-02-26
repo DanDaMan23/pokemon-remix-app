@@ -1,0 +1,20 @@
+export const pokemonBackgroundColorTypes: { [key: string]: string } = {
+  normal: "bg-pokemon-type-normal",
+  fire: "bg-pokemon-type-fire",
+  water: "bg-pokemon-type-water",
+  electric: "bg-pokemon-type-electric",
+  grass: "bg-pokemon-type-grass",
+  ice: "bg-pokemon-type-ice",
+  fighting: "bg-pokemon-type-fighting",
+  poison: "bg-pokemon-type-poison",
+  ground: "bg-pokemon-type-ground",
+  flying: "bg-pokemon-type-flying",
+  psychic: "bg-pokemon-type-psychic",
+  bug: "bg-pokemon-type-bug",
+  rock: "bg-pokemon-type-rock",
+  ghost: "bg-pokemon-type-ghost",
+  dragon: "bg-pokemon-type-dragon",
+  dark: "bg-pokemon-type-dark",
+  steel: "bg-pokemon-type-steel",
+  fairy: "bg-pokemon-type-fairy"
+}

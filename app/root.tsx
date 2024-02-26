@@ -1,16 +1,14 @@
-import { cssBundleHref } from "@remix-run/css-bundle"
 import type { LinksFunction, MetaFunction } from "@remix-run/node"
-import { json } from "@remix-run/node"
 import {
   Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration,
-  useLoaderData
+  ScrollRestoration
 } from "@remix-run/react"
-import { getAllPokemons } from "./data"
+
+import styles from "./tailwind.css"
 
 export const meta: MetaFunction = () => {
   return [
@@ -19,20 +17,9 @@ export const meta: MetaFunction = () => {
   ]
 }
 
-export const links: LinksFunction = () => [
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : [])
-]
-
-export const loader = async () => {
-  const pokemons = await getAllPokemons()
-  return json({ pokemons })
-}
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }]
 
 export default function App() {
-  const { pokemons } = useLoaderData<typeof loader>()
-
-  console.log(pokemons)
-
   return (
     <html lang='en'>
       <head>
@@ -41,8 +28,12 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-        <Outlet />
+      <body className='m-3'>
+        <p className='text-5xl font-extrabold text-center m-5'>Pokedex</p>
+        <div className='m-5'>
+          <Outlet />
+        </div>
+
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
