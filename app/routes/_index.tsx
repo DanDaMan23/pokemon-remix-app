@@ -13,12 +13,12 @@ export const loader = async () => {
 export default function Index() {
   const { pokemonData } = useLoaderData<typeof loader>()
 
-  const [pokemonList, setPokemonList] = useState<
-    Array<{
-      name: string
-      url: string
-    }>
-  >([])
+  type PokemonDataType = {
+    name: string
+    url: string
+  }
+
+  const [pokemonList, setPokemonList] = useState<Array<PokemonDataType>>([])
 
   const [pokemonNextLink, setPokemonNextLink] = useState<string>(
     pokemonData.next
@@ -53,11 +53,9 @@ export default function Index() {
     <>
       <div className='flex gap-2 flex-wrap justify-around'>
         {pokemonList.length &&
-          pokemonList.map(
-            (pokemon: { name: string; url: string }, index: number) => (
-              <PokemonCard key={index} {...pokemon} />
-            )
-          )}
+          pokemonList.map((pokemon: PokemonDataType, index: number) => (
+            <PokemonCard key={index} {...pokemon} />
+          ))}
       </div>
 
       <div className='text-center m-3'>
