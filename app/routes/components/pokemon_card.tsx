@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { pokemonBackgroundColorTypes } from "~/utils"
+import PokemonTypePill from "./pokemon_type_pill"
 
 interface PokemonCardProps {
   name: string
@@ -55,12 +56,7 @@ export default function PokemonCard({ name, url }: PokemonCardProps) {
           {/* Types */}
           <div className='flex gap-3 text-white'>
             {pokemonData.types.map(({ type: { name } }, index) => (
-              <p
-                className={`${pokemonBackgroundColorTypes[name]} border border-black min-w-20 rounded-full p-2 text-center capitalize`}
-                key={index}
-              >
-                {name}
-              </p>
+              <PokemonTypePill key={index} name={name} />
             ))}
           </div>
         </div>
