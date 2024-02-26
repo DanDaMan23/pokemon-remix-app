@@ -22,7 +22,6 @@ export default function PokemonCard({ name, url }: PokemonCardProps) {
           throw new Error("Failed to fetch pokemon")
         }
         const result = await response.json()
-        console.log(result)
         setPokemonData(result)
       } catch (error) {
         console.log(error)

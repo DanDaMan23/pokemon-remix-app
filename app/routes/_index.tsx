@@ -7,7 +7,6 @@ import { getAllPokemons } from "~/data"
 
 export const loader = async () => {
   const pokemonData = await getAllPokemons()
-  console.log(pokemonData)
   return json({ pokemonData })
 }
 
@@ -25,12 +24,15 @@ export default function Index() {
     pokemonData.next
   )
 
+  const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false)
+
   useEffect(() => {
     setPokemonList(pokemonData.pokemons)
     setPokemonNextLink(pokemonData.next)
   }, [pokemonData.next, pokemonData.pokemons])
 
   const addPokemonsToList = async () => {
+    setIsButtonLoading(true)
     try {
       const response = await fetch(pokemonNextLink)
       if (!response.ok) {
@@ -44,6 +46,7 @@ export default function Index() {
       console.log(error)
       throw error
     }
+    setIsButtonLoading(false)
   }
 
   return (
@@ -56,7 +59,23 @@ export default function Index() {
             )
           )}
       </div>
-      <button onClick={addPokemonsToList}>Add More</button>
+
+      <div className='text-center m-3'>
+        <button
+          onClick={addPokemonsToList}
+          className='border border-black p-1 rounded-lg w-full flex justify-center'
+        >
+          {isButtonLoading ? (
+            <img
+              src='/images/pokeball-spinner.png'
+              alt='pokeball'
+              className='animate-spin h-5 w-5 mr-3'
+            />
+          ) : (
+            "More..."
+          )}
+        </button>
+      </div>
     </>
   )
 }
