@@ -33,23 +33,39 @@ export default function PokemonCard({ name, url }: PokemonCardProps) {
   }, [url])
 
   return (
-    <div className='w-[250px] border rounded-lg p-3'>
+    <>
       {pokemonData && (
-        <>
+        <div
+          className={`w-[250px] border-none rounded-lg p-3 flex flex-col gap-4 ${
+            pokemonBackgroundColorTypes[pokemonData.types[0].type.name]
+          }`}
+        >
           {/* Picture */}
-          <img src={pokemonData.sprites.front_default} alt={name} />
-          <p className='capitalize'>{name}</p>
+          <div className='flex justify-center'>
+            <img
+              src={pokemonData.sprites.front_default}
+              alt={name}
+              className='w-52'
+            />
+          </div>
+
+          <p className='capitalize text-white text-2xl font-bold'>{name}</p>
           {/* Number */}
-          <p>{pokemonData.id}</p>
+          <p className='text-white text-l'># {pokemonData.id}</p>
           <p className='hidden'>{url}</p>
           {/* Types */}
-          {pokemonData.types.map(({ type: { name } }, index) => (
-            <p className={`${pokemonBackgroundColorTypes[name]}`} key={index}>
-              {name}
-            </p>
-          ))}
-        </>
+          <div className='flex gap-3 text-white'>
+            {pokemonData.types.map(({ type: { name } }, index) => (
+              <p
+                className={`${pokemonBackgroundColorTypes[name]} border border-black min-w-20 rounded-full p-2 text-center capitalize`}
+                key={index}
+              >
+                {name}
+              </p>
+            ))}
+          </div>
+        </div>
       )}
-    </div>
+    </>
   )
 }

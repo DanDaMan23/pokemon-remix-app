@@ -13,7 +13,7 @@ export default function Index() {
   const { pokemonData } = useLoaderData<typeof loader>()
 
   return (
-    <div className='flex gap-2 flex-wrap justify-between'>
+    <div className='flex gap-2 flex-wrap justify-around'>
       {pokemonData.pokemons.length &&
         pokemonData.pokemons.map(
           (pokemon: { name: string; url: string }, index: number) => (
