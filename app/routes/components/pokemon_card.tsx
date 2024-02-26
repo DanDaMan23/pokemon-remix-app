@@ -1,4 +1,5 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { pokemonBackgroundColorTypes } from "~/utils"
 
 interface PokemonCardProps {
   name: string
@@ -6,8 +7,14 @@ interface PokemonCardProps {
 }
 
 export default function PokemonCard({ name, url }: PokemonCardProps) {
+  type PokemonDataType = {
+    id: number
+    sprites: { front_default: string }
+    types: [{ type: { name: string } }]
+  }
+  const [pokemonData, setPokemonData] = useState<PokemonDataType>()
+
   useEffect(() => {
-    // Create separate function for this
     const fetchData = async () => {
       try {
         const response = await fetch(url)
@@ -16,6 +23,7 @@ export default function PokemonCard({ name, url }: PokemonCardProps) {
         }
         const result = await response.json()
         console.log(result)
+        setPokemonData(result)
       } catch (error) {
         console.log(error)
         throw error
@@ -26,8 +34,22 @@ export default function PokemonCard({ name, url }: PokemonCardProps) {
 
   return (
     <div className='w-[250px] border rounded-lg p-3'>
-      <p className='capitalize'>{name}</p>
-      <p className='hidden'>{url}</p>
+      {pokemonData && (
+        <>
+          {/* Picture */}
+          <img src={pokemonData.sprites.front_default} alt={name} />
+          <p className='capitalize'>{name}</p>
+          {/* Number */}
+          <p>{pokemonData.id}</p>
+          <p className='hidden'>{url}</p>
+          {/* Types */}
+          {pokemonData.types.map(({ type: { name } }, index) => (
+            <p className={`${pokemonBackgroundColorTypes[name]}`} key={index}>
+              {name}
+            </p>
+          ))}
+        </>
+      )}
     </div>
   )
 }
